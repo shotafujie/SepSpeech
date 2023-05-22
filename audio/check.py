@@ -10,7 +10,7 @@ import pandas as pd
 def main(args):
     #音声ファイル名が含まれている？csvファイルを読み込む
     df_speech = pd.read_csv(args.speech_csv)
-    #
+    
     for index, row in df_speech.iterrows():
         #source列を音声ファルのパスとする
         speech_path=row['source']

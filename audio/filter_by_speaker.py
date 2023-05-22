@@ -12,14 +12,17 @@ import pandas as pd
 def main(args):
 
     speakers=[]
+    #読み込み用でファイルをfとして開く
     with open(args.speakers, 'r') as f:
         lines = f.readlines()
         for line in lines:
+           #両端の空白文字を除去して，追加
            speakers.append(line.strip())
 
     df = pd.read_csv(args.csv)
     for index, row in df.iterrows():
         speaker = row['speaker']
+        #argsがTrueならば，読み込んだCSVのindex番目の行を削除する.
         if args.remove is True:
             if speaker in speakers:
                 df.drop(index=index, inplace=True)

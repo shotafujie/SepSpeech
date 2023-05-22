@@ -3,7 +3,7 @@ import argparse
 import pandas as pd
 import wave
 import re
-
+#wavファイルを探す
 def main(args):
 
     df=None

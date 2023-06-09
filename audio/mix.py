@@ -51,7 +51,7 @@ def main(args):
         noise_amp = cal_amp(noise)
 
         # 仮定：len(speech) << len(noise)
-        start = 
+        start = 25
         div_noise_amp = noise_amp[start:start+len(speech_amp)]
         noise_rms = cal_rms(div_noise_amp)
         #元のSNRを計算して，必要なSNRに変換する

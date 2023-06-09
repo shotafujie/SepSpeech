@@ -51,14 +51,15 @@ def main(args):
         noise_amp = cal_amp(noise)
 
         # 仮定：len(speech) << len(noise)
-        start = random.randint(0, len(noise_amp) - len(speech_amp))
+        start = 
         div_noise_amp = noise_amp[start:start+len(speech_amp)]
         noise_rms = cal_rms(div_noise_amp)
+        #元のSNRを計算して，必要なSNRに変換する
         snr = round(random.random() * range + args.min_snr, 2)
         adj_noise_rms = cal_adjusted_rms(speech_rms, snr)
         adj_noise_amp = div_noise_amp * (adj_noise_rms / noise_rms)
         mixed_amp = speech_amp + adj_noise_amp
-
+        #wavフォーマットの16ビットの最大値になると音声が歪む=クリップ　なので，修正している
         max_int16 = np.iinfo(np.int16).max
         min_int16 = np.iinfo(np.int16).min
         if mixed_amp.max(axis=0) > max_int16 or mixed_amp.min(axis=0) < min_int16:
@@ -82,6 +83,7 @@ if __name__ == '__main__':
     parser.add_argument('--noise-csv', type=str, required=True)
     parser.add_argument('--output-csv', type=str, required=True)
     parser.add_argument('--output-dir', type=str, required=True)
+    #max-snrとmin-snrを同じにすれば決まった大きさでつくることができる．0,10,20,30の4回分繰り返してコマンドを入れる
     parser.add_argument('--max-snr', type=float, default=30.0)
     parser.add_argument('--min-snr', type=float, default=-5.0)
     args=parser.parse_args()
